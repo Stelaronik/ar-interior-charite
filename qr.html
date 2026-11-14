@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f4f2ee">
+  <meta name="description" content="Генератор QR-кода для AR-реконструкции операционной Charité.">
+  <title>QR-код — Операционная Charité</title>
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./css/style.css">
+  <script type="module" src="./js/qr.js"></script>
+</head>
+<body class="qr-page">
+  <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-back" viewBox="0 0 24 24">
+      <path d="M19 12H5"/>
+      <path d="m11 18-6-6 6-6"/>
+    </symbol>
+    <symbol id="i-download" viewBox="0 0 24 24">
+      <path d="M12 3v12"/>
+      <path d="m7 10 5 5 5-5"/>
+      <path d="M4 20h16"/>
+    </symbol>
+    <symbol id="i-print" viewBox="0 0 24 24">
+      <path d="M7 9V3h10v6"/>
+      <path d="M7 18H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+      <rect x="7" y="14" width="10" height="7" rx="1"/>
+    </symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24">
+      <rect x="8" y="8" width="12" height="13" rx="2"/>
+      <path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/>
+    </symbol>
+  </svg>
+
+  <header class="header">
+    <div class="brand">
+      <span class="brand__mark" aria-hidden="true">AR</span>
+      <div class="brand__text">
+        <h1 class="brand__title">QR-код</h1>
+        <p class="brand__subtitle">Операционная Charité · AR</p>
+      </div>
+    </div>
+
+    <a class="qr-back" href="./index.html">
+      <svg aria-hidden="true"><use href="#i-back"></use></svg>
+      <span>К сцене</span>
+    </a>
+  </header>
+
+  <main class="qr-main">
+    <section class="qr-panel">
+      <div class="qr-copy">
+        <p class="eyebrow">Публикация</p>
+        <h1>QR-код для доступа к сцене</h1>
+        <p class="lead">
+          Вставьте ссылку на опубликованный сайт — QR обновится автоматически.
+          Скачайте PNG или SVG, распечатайте карточку и разместите её рядом с макетом.
+        </p>
+
+        <form class="qr-form" id="qr-form" autocomplete="off">
+          <label class="field">
+            <span>Ссылка на сайт</span>
+            <input type="url" id="qr-url" inputmode="url" spellcheck="false"
+                   placeholder="https://username.github.io/ar-interior-charite/" required>
+          </label>
+
+          <div class="field-row">
+            <label class="field">
+              <span>Размер PNG</span>
+              <select id="qr-size">
+                <option value="512">512 px</option>
+                <option value="1024" selected>1024 px</option>
+                <option value="2048">2048 px</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Коррекция ошибок</span>
+              <select id="qr-ec">
+                <option value="L">L — 7%</option>
+                <option value="M" selected>M — 15%</option>
+                <option value="Q">Q — 25%</option>
+                <option value="H">H — 30%</option>
+              </select>
+            </label>
+          </div>
+
+          <p class="qr-warning" id="qr-warning" hidden></p>
+
+          <div class="qr-actions">
+            <button type="button" id="qr-png" class="btn btn--primary">
+              <svg aria-hidden="true"><use href="#i-download"></use></svg>PNG
+            </button>
+            <button type="button" id="qr-svg" class="btn">
+              <svg aria-hidden="true"><use href="#i-download"></use></svg>SVG
+            </button>
+            <button type="button" id="qr-print" class="btn">
+              <svg aria-hidden="true"><use href="#i-print"></use></svg>Печать
+            </button>
+            <button type="button" id="qr-copy" class="btn">
+              <svg aria-hidden="true"><use href="#i-copy"></use></svg>Ссылка
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <div class="qr-preview-wrap">
+        <div class="qr-preview" id="qr-preview" role="img" aria-label="Предпросмотр QR-кода"></div>
+        <p class="qr-url" id="qr-url-label"></p>
+        <p class="qr-note">Наведите камеру телефона</p>
+      </div>
+    </section>
+  </main>
+
+  <div class="print-card" id="print-card">
+    <p class="print-eyebrow">Операционная Charité · AR</p>
+    <div class="print-qr" id="print-qr"></div>
+    <p class="print-url" id="print-url"></p>
+    <p class="print-note">Наведите камеру телефона</p>
+  </div>
+
+  <div class="toast" id="toast" hidden role="status" aria-live="polite"></div>
+</body>
+</html>
